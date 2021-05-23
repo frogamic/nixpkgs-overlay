@@ -5,7 +5,7 @@ path: final: prev:
 			value = import (path + "/${folder}") final prev;
 	};
 	in
-	with final.lib;
+	with prev.lib;
 		builtins.listToAttrs (
 			map mkOverlayPackage (
 				attrNames (

@@ -1,5 +1,5 @@
 final: prev: dirName: hostName: fileName: attrs:
-	with final; let
+	with prev; let
 		defaultAttrs = {
 			args = [ ./mkConfig.sh fileName hostName ];
 			baseInputs = [ coreutils gawk gnused gnugrep ];
