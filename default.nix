@@ -1,3 +1,4 @@
 final: prev: {
 	mylib = import ./lib final prev;
-} // (import ./top-level final prev)
+	mypkgs = import ./pkgs final prev;
+}
