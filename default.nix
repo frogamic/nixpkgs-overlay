@@ -1,4 +1,8 @@
-final: prev: {
-	mylib = import ./lib final prev;
-	mypkgs = import ./pkgs final prev;
-}
+final: prev:
+	let
+		callAllPackages = import ./src/callAllPackages.nix prev {};
+	in
+		{
+			mylib = callAllPackages ./lib;
+			mypkgs = callAllPackages ./pkgs;
+		}

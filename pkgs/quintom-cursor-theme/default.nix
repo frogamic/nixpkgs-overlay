@@ -1,11 +1,10 @@
-prev: final:
-	with prev;
+{ stdenv, fetchFromGitLab, lib, mylib }:
 	stdenv.mkDerivation rec {
 		name = "${package-name}-${version}";
 		package-name = "quintom-cursor-theme";
 		version = "d23e5733";
 
-		src = prev.fetchFromGitLab {
+		src = fetchFromGitLab {
 			owner = "Burning_Cube";
 			repo = "quintom-cursor-theme";
 			rev = version;
@@ -23,6 +22,6 @@ prev: final:
 			description = "This is an x-cursor theme designed to look decent.";
 			platforms = lib.platforms.unix;
 			license = with lib.licenses; [ cc-by-sa-40 gpl3 ];
-			mantainer = final.mylib.mantainer;
+			maintainers = [ mylib.maintainers.me ];
 		};
 	}
