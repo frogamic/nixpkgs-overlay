@@ -1,8 +1,12 @@
-final: prev:
-	let
-		callAllPackages = import ./src/callAllPackages.nix prev {};
-	in
-		{
-			mylib = callAllPackages ./lib;
-			mypkgs = callAllPackages ./pkgs;
-		}
+rec {
+	overlay = final: prev: {
+		mylib = import ./lib prev;
+		mypkgs = import ./pkgs prev;
+	};
+	module = { pkgs, ... }: {
+		nixpkgs.overlays = [
+			overlay
+		];
+		imports = (pkgs.mylib.nixImportable ./modules);
+	};
+}
