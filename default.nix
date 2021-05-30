@@ -3,7 +3,7 @@ rec {
 		mylib = import ./lib prev;
 		mypkgs = import ./pkgs prev;
 	};
-	module = { pkgs, ... }: {
+	nixosModule = { pkgs, ... }: {
 		nixpkgs.overlays = [
 			overlay
 		];
