@@ -1,9 +1,19 @@
-nixpkgs: path: extra:
+nixpkgs: folder: extra:
+	with builtins;
 	let
-		callPackage = name: {
-			inherit name;
-			value = nixpkgs.callPackage (path + "/${name}") extra;
+		removeSuffix = suffix: str:
+			let
+				sufLen = stringLength suffix;
+				sLen = stringLength str;
+			in
+				if sufLen <= sLen && suffix == substring (sLen - sufLen) sufLen str then
+					substring 0 (sLen - sufLen) str
+				else
+					str;
+		callPackage = path: {
+			name = removeSuffix ".nix" (baseNameOf path);
+			value = nixpkgs.callPackage path extra;
 		};
-		packageFolders = import ./nixImportable.nix nixpkgs path;
+		packageFolders = import ./nixImportable.nix folder;
 	in
-		builtins.listToAttrs (map callPackage packageFolders)
+		listToAttrs (map callPackage packageFolders)

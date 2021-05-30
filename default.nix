@@ -7,6 +7,6 @@ rec {
 		nixpkgs.overlays = [
 			overlay
 		];
-		imports = import ./src/nixImportable.nix pkgs ./modules;
+		imports = import ./src/nixImportable.nix ./modules;
 	};
 }
